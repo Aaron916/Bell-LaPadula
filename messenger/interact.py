@@ -14,16 +14,17 @@ import messages, control
 # User has a name and a password
 ###############################################################
 class User:
-    def __init__(self, name, password):
+    def __init__(self, name, password, control):
         self.name = name
         self.password = password
+        self.control = control
 
 userlist = [
-   [ "AdmiralAbe",     "password" ],  
-   [ "CaptainCharlie", "password" ], 
-   [ "SeamanSam",      "password" ],
-   [ "SeamanSue",      "password" ],
-   [ "SeamanSly",      "password" ]
+   [ "AdmiralAbe",     "password", "SECRET" ],  
+   [ "CaptainCharlie", "password" , "PRIVILEGED"], 
+   [ "SeamanSam",      "password" , "CONFIDENTIAL"],
+   [ "SeamanSue",      "password" , "CONFIDENTIAL"],
+   [ "SeamanSly",      "password" , "CONFIDENTIAL"]
 ]
 
 ###############################################################
@@ -116,7 +117,8 @@ class Interact:
     ################################################## 
     def _authenticate(self, username, password):
         id_ = self._id_from_user(username)
-        return ID_INVALID != id_ and password == users[id_].password
+        if ID_INVALID != id_ and password == users[id_].password:
+            return users[id_].control
 
     ##################################################
     # INTERACT :: ID FROM USER
