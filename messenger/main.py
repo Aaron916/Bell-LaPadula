@@ -56,6 +56,9 @@ def session(messages):
     password = simple_prompt("What is your password? ")
 
     interact_ = interact.Interact(username, password, messages)
+    if interact_._authenticate(username, password) is False:
+        print(f"\nIncorrect Credentials for the user {username}")
+        return 
     print(f"\nWelcome, {username}. Please select an option:\n")
     display_options()
 
