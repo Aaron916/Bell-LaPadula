@@ -6,7 +6,6 @@
 # Summary: 
 #    This class stores the notion of Bell-LaPadula
 ########################################################################
-
 class Control(Enum):
     PUBLIC = 1
     CONFIDENTIAL = 2

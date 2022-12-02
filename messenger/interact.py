@@ -46,7 +46,7 @@ class Interact:
     # Authenticate the user and get him/her all set up
     ##################################################
     def __init__(self, username, password, messages):
-        self._authenticate(username, password)
+        self.control = self._authenticate(username, password)
         self._username = username
         self._p_messages = messages
 
@@ -76,7 +76,8 @@ class Interact:
     def add(self):
         self._p_messages.add(self._prompt_for_line("message"),
                              self._username,
-                             self._prompt_for_line("date"))
+                             self._prompt_for_line("date"),
+                             self.control)
 
     ##################################################
     # INTERACT :: UPDATE
