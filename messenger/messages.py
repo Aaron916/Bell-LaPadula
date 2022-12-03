@@ -27,9 +27,10 @@ class Messages:
     # MESSAGES :: DISPLAY
     # Display the list of messages
     ################################################## 
-    def display(self, control):
+    def display(self, _control):
         for m in self._messages:
-            m.display_properties()
+            if control.securityConditionRead(_control, m.control):
+                m.display_properties()
 
     ##################################################
     # MESSAGES :: SHOW

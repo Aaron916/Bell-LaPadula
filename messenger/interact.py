@@ -17,7 +17,7 @@ class User:
     def __init__(self, name, password, control):
         self.name = name
         self.password = password
-        self.control = control
+        #self.control = users[self._id_from_user(name)].control
 
 userlist = [
    [ "AdmiralAbe",     "password", "SECRET" ],  
@@ -46,9 +46,10 @@ class Interact:
     # Authenticate the user and get him/her all set up
     ##################################################
     def __init__(self, username, password, messages):
-        self.control = self._authenticate(username, password)
+        self._authenticate = self._authenticate(username, password)
         self._username = username
         self._p_messages = messages
+        #self.control = users[self._id_from_user(username)].control
 
     ##################################################
     # INTERACT :: SHOW
@@ -66,7 +67,7 @@ class Interact:
     ################################################## 
     def display(self):
         print("Messages:")
-        self._p_messages.display()
+        self._p_messages.display(self.control)
         print()
 
     ##################################################
