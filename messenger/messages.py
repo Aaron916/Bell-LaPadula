@@ -29,16 +29,16 @@ class Messages:
     ################################################## 
     def display(self, _control):
         for m in self._messages:
-            if control.securityConditionRead(_control, m.control):
+            if control.read(_control, m.control):
                 m.display_properties()
 
     ##################################################
     # MESSAGES :: SHOW
     # Show a single message
     ################################################## 
-    def show(self, id):
+    def show(self, id, _control):
         for m in self._messages:
-            if m.get_id() == id:
+            if m.get_id() == id and control.read(_control, m.control):
                 m.display_text()
                 return True
         return False
@@ -47,9 +47,9 @@ class Messages:
     # MESSAGES :: UPDATE
     # Update a single message
     ################################################## 
-    def update(self, id, text):
+    def update(self, id, text, _control):
         for m in self._messages:
-            if m.get_id() == id:
+            if m.get_id() == id and control.write(_control,m.control):
                 m.update_text(text)
 
     ##################################################
