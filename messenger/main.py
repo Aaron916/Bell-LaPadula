@@ -2,7 +2,7 @@
 # Program:
 #    Lab 12, Bell-LaPadula
 # Author:
-#    Br. Helfrich, Kyle Mueller, <your name here if you made a change>
+#    Br. Helfrich, Kyle Mueller, Daxton Wirth
 # Summary: 
 #    This program is designed to keep track of a number of secret
 #    messages. IT will display messages to the appropriate users
@@ -56,19 +56,21 @@ def session(messages):
     password = simple_prompt("What is your password? ")
 
     interact_ = interact.Interact(username, password, messages)
-    if interact_._authenticate is False:
+    if interact_.authenticated is False:
         print(f"\nIncorrect Credentials for the user {username}")
         return 
+    control = interact_.control
+
     print(f"\nWelcome, {username}. Please select an option:\n")
     display_options()
 
     options = {
         "o": "print('Options:'); display_options();",
-        "d": "interact_.display();",
-        "s": "interact_.show();",
-        "a": "interact_.add();",
-        "u": "interact_.update();",
-        "r": "interact_.remove();",
+        "d": "interact_.display(control);",
+        "s": "interact_.show(control);",
+        "a": "interact_.add(control);",
+        "u": "interact_.update(control);",
+        "r": "interact_.remove(control);",
         "l": "print(f'Goodbye, {username}{chr(10)}'); close_session();"
     }
 
