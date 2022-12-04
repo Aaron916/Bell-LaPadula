@@ -17,14 +17,14 @@ class User:
     def __init__(self, name, password, control):
         self.name = name
         self.password = password
-        #self.control = users[self._id_from_user(name)].control
+        self.control = control
 
 userlist = [
-   [ "AdmiralAbe",     "password", "SECRET" ],  
-   [ "CaptainCharlie", "password" , "PRIVILEGED"], 
-   [ "SeamanSam",      "password" , "CONFIDENTIAL"],
-   [ "SeamanSue",      "password" , "CONFIDENTIAL"],
-   [ "SeamanSly",      "password" , "CONFIDENTIAL"]
+   [ "AdmiralAbe",     "password",  "Secret" ],  
+   [ "CaptainCharlie", "password" , "Privileged"], 
+   [ "SeamanSam",      "password" , "Confidential"],
+   [ "SeamanSue",      "password" , "Confidential"],
+   [ "SeamanSly",      "password" , "Confidential"]
 ]
 
 ###############################################################
@@ -46,18 +46,19 @@ class Interact:
     # Authenticate the user and get him/her all set up
     ##################################################
     def __init__(self, username, password, messages):
-        self._authenticate = self._authenticate(username, password)
+        self.authenticated = self._authenticate(username, password)
         self._username = username
+        self.id = self._id_from_user(username)
+        self.control = self._control_from_user(self.id)
         self._p_messages = messages
-        #self.control = users[self._id_from_user(username)].control
 
     ##################################################
     # INTERACT :: SHOW
     # Show a single message
     ##################################################
-    def show(self):
+    def show(self, _control):
         id_ = self._prompt_for_id("display")
-        if not self._p_messages.show(id_, self.control):
+        if not self._p_messages.show(id_, _control):
             print(f"ERROR! Message ID \'{id_}\' does not exist")
         print()
 
@@ -65,39 +66,39 @@ class Interact:
     # INTERACT :: DISPLAY
     # Display the set of messages
     ################################################## 
-    def display(self):
+    def display(self, control):
         print("Messages:")
-        self._p_messages.display(self.control)
+        self._p_messages.display(control)
         print()
 
     ##################################################
     # INTERACT :: ADD
     # Add a single message
     ################################################## 
-    def add(self):
-        self._p_messages.add(self._prompt_for_line("message"),
+    def add(self, _control):
+        self._p_messages.add(_control,
+                             self._prompt_for_line("message"),
                              self._username,
-                             self._prompt_for_line("date"),
-                             self.control)
+                             self._prompt_for_line("date"))
 
     ##################################################
     # INTERACT :: UPDATE
     # Update a single message
     ################################################## 
-    def update(self):
+    def update(self, _control):
         id_ = self._prompt_for_id("update")
-        if not self._p_messages.show(id_):
+        if not self._p_messages.show(id_, _control):
             print(f"ERROR! Message ID \'{id_}\' does not exist\n")
             return
-        self._p_messages.update(id_, self._prompt_for_line("message"), self.control)
+        self._p_messages.update(id_, self._prompt_for_line("message"), _control)
         print()
             
     ##################################################
     # INTERACT :: REMOVE
     # Remove one message from the list
     ################################################## 
-    def remove(self):
-        self._p_messages.remove(self._prompt_for_id("delete"))
+    def remove(self, _control):
+        self._p_messages.remove(self._prompt_for_id("delete"), _control)
 
     ##################################################
     # INTERACT :: PROMPT FOR LINE
@@ -130,6 +131,14 @@ class Interact:
             if username == users[id_user].name:
                 return id_user
         return ID_INVALID
+
+    ##################################################
+    # INTERACT :: Control FROM USER
+    # Find the Control of a given user
+    ################################################## 
+    def _control_from_user(self, id):
+        return users[id].control
+
 
 #####################################################
 # INTERACT :: DISPLAY USERS
