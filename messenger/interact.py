@@ -24,7 +24,8 @@ userlist = [
    [ "CaptainCharlie", "password" , "Privileged"], 
    [ "SeamanSam",      "password" , "Confidential"],
    [ "SeamanSue",      "password" , "Confidential"],
-   [ "SeamanSly",      "password" , "Confidential"]
+   [ "SeamanSly",      "password" , "Confidential"],
+   [ "Public",         "password" , "Public"],
 ]
 
 ###############################################################
