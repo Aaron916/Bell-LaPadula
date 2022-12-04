@@ -2,31 +2,26 @@
 # COMPONENT:
 #    CONTROL
 # Author:
-#    Br. Helfrich, Kyle Mueller, Aaron Rooks, Daxton Wirth
+#    Br. Helfrich, Kyle Mueller, <your name here if you made a change>
 # Summary: 
 #    This class stores the notion of Bell-LaPadula
 ########################################################################
+
 class Control():
-    def __init__(self):
-        self.PUBLIC = 0
-        self.CONFIDENTIAL = 1
-        self.PRIVILEGED = 2
-        self.SECRET = 3
+    def get_control_int(control):
+        if control == "Public": return 0
+        elif control == "Confidential": return 1
+        elif control == "Privileged": return 2
+        elif control == "Secret": return 3
 
-    def securityConditionRead(subjectControl, assetControl):
-        return subjectControl >= assetControl
-    
-    def securityConditionWrite(subjectControl, assetControl):
-        return subjectControl <= assetControl
-
-    def read(subjectControl, assetControl, self):
-        if (self.securityConditionRead(subjectControl, assetControl) is False):
+    def read(subjectControl, assetControl):
+        if (Control.get_control_int(subjectControl) >= Control.get_control_int(assetControl)) is False:
             print("Read access denied")
             return False
         return True
     
-    def write(subjectControl, assetControl, self):
-        if (self.securityConditionWrite(subjectControl, assetControl) is False):
+    def write(subjectControl, assetControl):
+        if (Control.get_control_int(subjectControl) <= Control.get_control_int(assetControl)) is False:
             print("Write access denied")
             return False
         return True
