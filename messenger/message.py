@@ -27,7 +27,6 @@ class Message:
         self._text = "Empty"
         self._author = ""
         self._date = ""
-        self.control = "PUBLIC"
         self._id = Message._id_next
         Message._id_next += 1
 
@@ -35,9 +34,9 @@ class Message:
     # MESSAGE NON-DEFAULT CONSTRUCTOR
     # Create a message and fill it
     ##################################################   
-    def __init__(self, text, author, date, control):
+    def __init__(self, _textcontrol, text, author, date):
+        self._textcontrol = _textcontrol
         self._text = text
-        self.control = control
         self._author = author
         self._date = date
         self._id = Message._id_next
