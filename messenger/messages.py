@@ -29,7 +29,7 @@ class Messages:
     ################################################## 
     def display(self, _control):
         for m in self._messages:
-            if control.read(_control, m.control):
+            if control.Control.read(_control, m._textcontrol):
                 m.display_properties()
 
     ##################################################
@@ -38,7 +38,7 @@ class Messages:
     ################################################## 
     def show(self, id, _control):
         for m in self._messages:
-            if m.get_id() == id and control.read(_control, m.control):
+            if m.get_id() == id and control.Control.read(_control, m._textcontrol):
                 m.display_text()
                 return True
         return False
@@ -49,24 +49,24 @@ class Messages:
     ################################################## 
     def update(self, id, text, _control):
         for m in self._messages:
-            if m.get_id() == id and control.write(_control,m.control):
+            if m.get_id() == id and control.Control.write(_control, m._textcontrol):
                 m.update_text(text)
 
     ##################################################
     # MESSAGES :: REMOVE
     # Remove a single message
     ################################################## 
-    def remove(self, id):
+    def remove(self, id, _control):
         for m in self._messages:
-            if m.get_id() == id:
+            if m.get_id() == id and control.Control.write(_control, m._textcontrol):
                 m.clear()
 
     ##################################################
     # MESSAGES :: ADD
     # Add a new message
     ################################################## 
-    def add(self, text, author, date, control):
-        m = message.Message(text, author, date, control)
+    def add(self, text_control, text, author, date):
+        m = message.Message(text_control, text, author, date)
         self._messages.append(m)
 
     ##################################################
@@ -77,8 +77,8 @@ class Messages:
         try:
             with open(filename, "r") as f:
                 for line in f:
-                    control, author, date, text = line.split('|')
-                    self.add(text.rstrip('\r\n'), author, date, control)
+                    text_control, author, date, text = line.split('|')
+                    self.add(text_control, text.rstrip('\r\n'), author, date)
 
         except FileNotFoundError:
             print(f"ERROR! Unable to open file \"{filename}\"")
