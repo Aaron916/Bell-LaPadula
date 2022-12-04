@@ -44,6 +44,16 @@ class Messages:
         return False
 
     ##################################################
+    # MESSAGES :: Check
+    # Check to confirm a single message exists
+    ################################################## 
+    def check(self, id):
+        for m in self._messages:
+            if m.get_id() == id:
+                return True
+        return False
+
+    ##################################################
     # MESSAGES :: UPDATE
     # Update a single message
     ################################################## 
